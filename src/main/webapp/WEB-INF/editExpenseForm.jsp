@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: arman
-  Date: 6/14/2023
-  Time: 6:29 PM
+  Date: 6/15/2023
+  Time: 12:03 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -24,65 +24,15 @@
 <body>
 <div class="container p-5">
   <div class="d-flex justify-content-center">
-    <div class="card w-100 mb-5">
-      <div class="card-header text-center">
-        <h1>Expenses Dashboard</h1>
-      </div>
-      <div class="card-body">
-        <table class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th scope="col">Expense</th>
-            <th scope="col">Vendor</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <c:forEach var="expense" items="${allExpenses}">
-            <tr>
-              <td>${expense.name}</td>
-              <td>${expense.vendor}</td>
-              <fmt:parseNumber
-                  var="amount"
-                  type="number"
-                  value="${expense.amount}"
-              />
-              <td>
-                $${amount}
-              </td>
-              <td>
-                <div class="d-flex justify-content-center">
-                  <form action="/expenses/delete/${expense.id}" method="post">
-                    <div class="btn-group" role="group">
-                      <a href="/expenses/${expense.id}" class="btn btn-primary">
-                        View
-                      </a>
-                      <a href="/expenses/edit/${expense.id}" class="btn btn-warning">
-                        Edit
-                      </a>
-                      <input type="hidden" name="_method" value="delete">
-                      <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          </c:forEach>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center">
     <div class="card w-100">
       <div class="card-header text-center fs-3">
-        New Expense Form
+        Edit Expense Form
       </div>
       <div class="card-body">
-        <form:form action="/expenses/new" method="post" modelAttribute="expense">
+        <form:form action="/expenses/update/${expense.id}" method="post" modelAttribute="expense">
+          <input type="hidden" name="_method" value="put">
           <div class="mb-3">
-            <form:label path="name" class="form-label">Expense name: </form:label>
+            <form:label path="name" class="form-label">Expense name:</form:label>
             <form:input path="name" class="form-control"/>
             <p class="text-danger">
               <form:errors path="name"/>
@@ -112,7 +62,10 @@
               <form:errors path="description"/>
             </p>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="d-flex justify-content-end gap-3">
+            <a href="/" class="btn btn-danger" role="button">Cancel</a>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+          </div>
         </form:form>
       </div>
     </div>

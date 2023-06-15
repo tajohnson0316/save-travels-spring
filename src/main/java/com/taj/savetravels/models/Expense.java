@@ -13,11 +13,11 @@ public class Expense {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank
+  @NotBlank(message = "")
   @Size(min = 2, message = "Please provide the name of the expense [min. (2) characters]")
   private String name;
 
-  @NotBlank
+  @NotBlank(message = "")
   @Size(min = 2, message = "Please provide the name of the vendor [min. (2) characters]")
   private String vendor;
 
@@ -25,7 +25,7 @@ public class Expense {
   @DecimalMin(value = "0.01", message = "Please provide the expense's total value [min. $0.01]")
   private Double amount;
 
-  @NotBlank
+  @NotBlank(message = "")
   @Size(min = 2, message = "Please provide a brief description of the expense (or put 'N/A')")
   private String description;
 
